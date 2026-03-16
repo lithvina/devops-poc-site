@@ -4,15 +4,21 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- checkout: self
+stages:
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: .
-    includeRootFolder: false
-    archiveType: zip
-    archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
+- stage: Build
+  jobs:
+  - job: BuildWebsite
 
-- publish: $(Build.ArtifactStagingDirectory)/site.zip
-  artifact: website
+    steps:
+    - checkout: self
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: .
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
+
+    - publish: $(Build.ArtifactStagingDirectory)/site.zip
+      artifact: website
