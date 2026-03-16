@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: devops-poc-SSA
 
 stages:
 
