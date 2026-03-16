@@ -1,0 +1,18 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: .
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
+
+- publish: $(Build.ArtifactStagingDirectory)/site.zip
+  artifact: website
