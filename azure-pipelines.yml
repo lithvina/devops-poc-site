@@ -42,14 +42,9 @@ stages:
           - download: current
             artifact: website
 
-          - task: ExtractFiles@1
-            inputs:
-              archiveFilePatterns: '$(Pipeline.Workspace)/website/site.zip'
-              destinationFolder: '$(Pipeline.Workspace)/website'
-
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'devops-poc'
               appName: 'poc-devops-webapp'
               slotName: 'test'
-              package: $(Pipeline.Workspace)/website
+              package: $(Pipeline.Workspace)/website/site.zip
