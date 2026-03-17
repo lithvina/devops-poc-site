@@ -13,7 +13,14 @@ stages:
     steps:
     - checkout: self
 
-    - publish: $(Build.SourcesDirectory)
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: $(Build.SourcesDirectory)
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
+
+    - publish: $(Build.ArtifactStagingDirectory)/site.zip
       artifact: website
 
 # ✅ DEPLOY TO TEST SLOT
@@ -40,4 +47,5 @@ stages:
               azureSubscription: 'devops-poc'
               appName: 'poc-devops-webapp'
               slotName: 'test'
-              package: $(Pipeline.Workspace)/website
+              package: $(Pipeline.Workspace)/website/site.zip
+              deploymentMethod: zipDeploy
