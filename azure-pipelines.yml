@@ -22,3 +22,29 @@ stages:
 
     - publish: $(Build.ArtifactStagingDirectory)/site.zip
       artifact: website
+
+- stage: Deploy_Test
+  dependsOn: Build
+
+  jobs:
+  - deployment: DeployWeb
+
+    environment: test-env
+
+    pool:
+      name: devops-poc-SSA
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - download: current
+            artifact: website
+
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'devops-poc'
+              appName: 'poc-devops-webapp'
+              slotName: 'test'
+              package: $(Pipeline.Workspace)/website/site.zip
