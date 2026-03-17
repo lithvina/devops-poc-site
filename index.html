@@ -7,54 +7,59 @@
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0078D4, #00B4DB);
-    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #e6f0ff, #f3e8ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Center container */
+/* Card */
 .container {
-    background: white;
-    width: 60%;
-    margin: 100px auto;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 20px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Top strip */
+.top-strip {
+    height: 8px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    background: linear-gradient(to right,
+        #5fa8d3,
+        #7fc8a9,
+        #b8c0ff,
+        #cdb4db
+    );
 }
 
 /* Heading */
 h1 {
-    color: #0078D4;
-    font-size: 36px;
+    font-size: 28px;
+    color: #2c3e50;
     margin-bottom: 10px;
-}
-
-/* Sub heading */
-h2 {
-    color: #444;
-    font-weight: normal;
 }
 
 /* Text */
 p {
-    font-size: 18px;
-    margin: 10px 0;
+    font-size: 16px;
+    color: #6c7a89;
 }
 
-/* Highlight box */
-.success-box {
-    background: #e6f7ff;
-    border-left: 5px solid #0078D4;
-    padding: 15px;
+/* Badge */
+.badge {
+    display: inline-block;
     margin-top: 20px;
-    border-radius: 8px;
-}
-
-/* Footer */
-.footer {
-    margin-top: 30px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #eef6ff;
+    color: #4a90e2;
     font-size: 14px;
-    color: gray;
 }
 
 </style>
@@ -65,28 +70,13 @@ p {
 
 <div class="container">
 
-    <h1>🚀 DevOps POC Deployment</h1>
-    <h2>Continuous Integration & Deployment Successful</h2>
+    <div class="top-strip"></div>
 
-    <div class="success-box">
-        <p><b>Congratulations Helen! 🎉</b></p>
-        <p>Your CI/CD pipeline is working perfectly.</p>
-    </div>
+    <h1>DevOps POC</h1>
+    <p>Congratulations</p>
+    <p>Deployment Successful </p>
 
-    <p>Hello Helen, your application has been successfully built, tested, and deployed using Azure DevOps.</p>
-
-    <p>This demonstrates an automated pipeline with:</p>
-
-    <ul style="text-align:left; margin-left: 20%;">
-        <li>✔ Continuous Integration (CI)</li>
-        <li>✔ Automated Build Process</li>
-        <li>✔ Deployment to Test Environment</li>
-        <li>✔ Approval-based Production Deployment</li>
-    </ul>
-
-    <div class="footer">
-        <p>Powered by Azure DevOps | CI/CD Pipeline Demo</p>
-    </div>
+    <div class="badge">CI/CD Pipeline Working</div>
 
 </div>
 
