@@ -54,23 +54,22 @@ stages:
 
 
 # ✅ PROD DEPLOY (WITH APPROVAL)
-- stage: Deploy_Prod
+- stage: Swap_To_Prod
   dependsOn: Deploy_Test
 
   jobs:
-  - deployment: DeployProd
+  - deployment: SwapSlots
     environment: prod-env
 
     strategy:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: website
 
-          - task: AzureWebApp@1
+          - task: AzureAppServiceManage@0
             inputs:
               azureSubscription: 'devops-poc'
-              appName: 'poc-devops-webapp'
-              package: $(Pipeline.Workspace)/website/site.zip
-              deploymentMethod: zipDeploy
+              Action: 'Swap Slots'
+              WebAppName: 'poc-devops-webapp'
+              ResourceGroupName: 'rg-devops-poc>'
+              SourceSlot: 'test'
