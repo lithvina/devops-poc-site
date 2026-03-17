@@ -6,29 +6,22 @@ pool:
 
 stages:
 
+# ✅ BUILD (NO ZIP)
 - stage: Build
   jobs:
   - job: BuildWebsite
-
     steps:
     - checkout: self
 
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: .
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
-
-    - publish: $(Build.ArtifactStagingDirectory)/site.zip
+    - publish: $(Build.SourcesDirectory)
       artifact: website
 
+# ✅ DEPLOY TO TEST SLOT
 - stage: Deploy_Test
   dependsOn: Build
 
   jobs:
   - deployment: DeployWeb
-
     environment: test-env
 
     pool:
@@ -47,4 +40,4 @@ stages:
               azureSubscription: 'devops-poc'
               appName: 'poc-devops-webapp'
               slotName: 'test'
-              package: $(Pipeline.Workspace)/website/site.zip
+              package: $(Pipeline.Workspace)/website
