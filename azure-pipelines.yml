@@ -42,33 +42,14 @@ stages:
           - download: current
             artifact: website
 
+          - task: ExtractFiles@1
+            inputs:
+              archiveFilePatterns: '$(Pipeline.Workspace)/website/site.zip'
+              destinationFolder: '$(Pipeline.Workspace)/website'
+
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'devops-poc'
               appName: 'poc-devops-webapp'
               slotName: 'test'
-              package: $(Pipeline.Workspace)/website/site.zip
-
-- stage: Deploy_Prod
-  dependsOn: Deploy_Test
-
-  jobs:
-  - deployment: DeployProd
-    environment: prod-env
-
-    pool:
-      name: devops-poc-SSA
-
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-
-          - download: current
-            artifact: website
-
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: 'devops-poc'
-              appName: 'poc-devops-webapp'
-              package: $(Pipeline.Workspace)/website/site.zip
+              package: $(Pipeline.Workspace)/website
