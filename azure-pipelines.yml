@@ -71,5 +71,5 @@ stages:
               azureSubscription: 'devops-poc'
               Action: 'Swap Slots'
               WebAppName: 'poc-devops-webapp'
-              ResourceGroupName: 'rg-devops-poc>'
+              ResourceGroupName: 'rg-devops-poc'
               SourceSlot: 'test'
