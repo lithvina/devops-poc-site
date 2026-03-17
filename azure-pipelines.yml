@@ -6,24 +6,30 @@ pool:
 
 stages:
 
-# ✅ BUILD (NO ZIP)
+# ✅ BUILD WITH APPROVAL
 - stage: Build
   jobs:
-  - job: BuildWebsite
-    steps:
-    - checkout: self
+  - deployment: BuildJob
+    environment: build-env   #  approval here
 
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: $(Build.SourcesDirectory)
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
 
-    - publish: $(Build.ArtifactStagingDirectory)/site.zip
-      artifact: website
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: $(Build.SourcesDirectory)
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
 
-# ✅ DEPLOY TO TEST SLOT
+          - publish: $(Build.ArtifactStagingDirectory)/site.zip
+            artifact: website
+
+
+# ✅ TEST DEPLOY (WITH APPROVAL)
 - stage: Deploy_Test
   dependsOn: Build
 
@@ -31,14 +37,10 @@ stages:
   - deployment: DeployWeb
     environment: test-env
 
-    pool:
-      name: devops-poc-SSA
-
     strategy:
       runOnce:
         deploy:
           steps:
-
           - download: current
             artifact: website
 
@@ -50,7 +52,8 @@ stages:
               package: $(Pipeline.Workspace)/website/site.zip
               deploymentMethod: zipDeploy
 
-# ✅ DEPLOY TO PRODUCTION
+
+# ✅ PROD DEPLOY (WITH APPROVAL)
 - stage: Deploy_Prod
   dependsOn: Deploy_Test
 
@@ -62,7 +65,6 @@ stages:
       runOnce:
         deploy:
           steps:
-
           - download: current
             artifact: website
 
