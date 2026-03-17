@@ -5,19 +5,56 @@
 
 <style>
 
-body{
-font-family: Arial;
-background:#f4f4f4;
-text-align:center;
-padding-top:100px;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0078D4, #00B4DB);
+    color: #333;
 }
 
-h1{
-color:Black;
+/* Center container */
+.container {
+    background: white;
+    width: 60%;
+    margin: 100px auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
 
-p{
-font-size:20px;
+/* Heading */
+h1 {
+    color: #0078D4;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+/* Sub heading */
+h2 {
+    color: #444;
+    font-weight: normal;
+}
+
+/* Text */
+p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Highlight box */
+.success-box {
+    background: #e6f7ff;
+    border-left: 5px solid #0078D4;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: gray;
 }
 
 </style>
@@ -26,15 +63,32 @@ font-size:20px;
 
 <body>
 
-<h1>DevOps POC Deployment</h1>
+<div class="container">
 
-<p>Congratualations helen! </p>
-  
-<p>Hello Helen, the pipeline deployment worked! </p>
-<br>
-<p>Your website is working succesfully! </p> 
+    <h1>🚀 DevOps POC Deployment</h1>
+    <h2>Continuous Integration & Deployment Successful</h2>
 
+    <div class="success-box">
+        <p><b>Congratulations Helen! 🎉</b></p>
+        <p>Your CI/CD pipeline is working perfectly.</p>
+    </div>
+
+    <p>Hello Helen, your application has been successfully built, tested, and deployed using Azure DevOps.</p>
+
+    <p>This demonstrates an automated pipeline with:</p>
+
+    <ul style="text-align:left; margin-left: 20%;">
+        <li>✔ Continuous Integration (CI)</li>
+        <li>✔ Automated Build Process</li>
+        <li>✔ Deployment to Test Environment</li>
+        <li>✔ Approval-based Production Deployment</li>
+    </ul>
+
+    <div class="footer">
+        <p>Powered by Azure DevOps | CI/CD Pipeline Demo</p>
+    </div>
+
+</div>
 
 </body>
-
 </html>
