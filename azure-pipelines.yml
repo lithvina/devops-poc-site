@@ -47,7 +47,7 @@ stages:
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'devops-poc'
-              appName: 'poc-devops-webapp'
+              appName: 'devops-app'
               slotName: 'test'
               package: $(Pipeline.Workspace)/website/site.zip
               deploymentMethod: zipDeploy
@@ -70,6 +70,6 @@ stages:
             inputs:
               azureSubscription: 'devops-poc'
               Action: 'Swap Slots'
-              WebAppName: 'poc-devops-webapp'
+              WebAppName: 'devops-app'
               ResourceGroupName: 'rg-devops-poc'
               SourceSlot: 'test'
