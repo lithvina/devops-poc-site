@@ -6,11 +6,11 @@ pool:
 
 stages:
 
-# ✅ BUILD WITH APPROVAL
+# ---------------- BUILD (WITH APPROVAL) ----------------
 - stage: Build
   jobs:
   - deployment: BuildJob
-    environment: build-env   #  approval here
+    environment: build-env   # ✅ approval here
 
     strategy:
       runOnce:
@@ -18,48 +18,40 @@ stages:
           steps:
           - checkout: self
 
-          - task: ArchiveFiles@2
-            inputs:
-              rootFolderOrFile: $(Build.SourcesDirectory)
-              includeRootFolder: false
-              archiveType: zip
-              archiveFile: $(Build.ArtifactStagingDirectory)/site.zip
-
-          - publish: $(Build.ArtifactStagingDirectory)/site.zip
-            artifact: website
+          - script: |
+              echo ===== BUILD STAGE =====
+              echo Files:
+              dir $(Build.SourcesDirectory)
 
 
-# ✅ TEST DEPLOY (WITH APPROVAL)
+# ---------------- DEPLOY TO TEST (WITH APPROVAL) ----------------
 - stage: Deploy_Test
   dependsOn: Build
 
   jobs:
   - deployment: DeployWeb
-    environment: test-env
+    environment: test-env   # ✅ approval here
 
     strategy:
       runOnce:
         deploy:
           steps:
-          - download: current
-            artifact: website
 
           - task: AzureWebApp@1
             inputs:
               azureSubscription: 'devops-poc'
               appName: 'devops-app'
               slotName: 'test'
-              package: $(Pipeline.Workspace)/website/site.zip
-              deploymentMethod: zipDeploy
+              package: '$(Build.SourcesDirectory)'   # ✅ direct folder deploy
 
 
-# ✅ PROD DEPLOY (WITH APPROVAL)
+# ---------------- SWAP TO PROD (WITH APPROVAL) ----------------
 - stage: Swap_To_Prod
   dependsOn: Deploy_Test
 
   jobs:
   - deployment: SwapSlots
-    environment: prod-env
+    environment: prod-env   # ✅ approval here
 
     strategy:
       runOnce:
