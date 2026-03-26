@@ -10,6 +10,7 @@ stages:
 - stage: Build
   jobs:
   - deployment: BuildJob
+    timeoutInMinutes: 60
     environment: build-env
 
     strategy:
@@ -30,6 +31,7 @@ stages:
 
   jobs:
   - deployment: DeployWeb
+    timeoutInMinutes: 60
     environment: test-env
 
     strategy:
@@ -51,6 +53,7 @@ stages:
 
   jobs:
   - deployment: SwapSlots
+    timeoutInMinutes: 60
     environment: prod-env
 
     strategy:
