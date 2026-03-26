@@ -10,7 +10,7 @@ stages:
 - stage: Build
   jobs:
   - deployment: BuildJob
-    environment: build-env   # ✅ approval here
+    environment: build-env
 
     strategy:
       runOnce:
@@ -30,7 +30,7 @@ stages:
 
   jobs:
   - deployment: DeployWeb
-    environment: test-env   # ✅ approval here
+    environment: test-env
 
     strategy:
       runOnce:
@@ -42,7 +42,7 @@ stages:
               azureSubscription: 'devops-poc'
               appName: 'devops-app'
               slotName: 'test'
-              package: '$(Build.SourcesDirectory)'   # ✅ direct folder deploy
+              package: '$(Build.SourcesDirectory)'
 
 
 # ---------------- SWAP TO PROD (WITH APPROVAL) ----------------
@@ -51,7 +51,7 @@ stages:
 
   jobs:
   - deployment: SwapSlots
-    environment: prod-env   # ✅ approval here
+    environment: prod-env
 
     strategy:
       runOnce:
